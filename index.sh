@@ -186,8 +186,8 @@ wp_menu 'location assign mymemu primary'
 cp -r ${this_path}/htaccess/htaccess  ${VESTACP_HTML_PATH}/.htaccess  #lmport
 chmod -R 777  ${VESTACP_HTML_PATH}/wp-content
 # mkdir ${VESTACP_HTML_PATH}/pages
-echo "*/10 * * * * find /home/admin/tmp -type f -name 'sess_*' -mmin +10 -exec rm {} \;" >>  /var/spool/cron/crontabs/admin
-service cron restart
+# echo "*/10 * * * * find /home/admin/tmp -type f -name 'sess_*' -mmin +10 -exec rm {} \;" >>  /var/spool/cron/crontabs/admin
+# service cron restart
 
 
 
