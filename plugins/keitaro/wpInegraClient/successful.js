@@ -41,9 +41,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         })
 
-        url = 'https://quotes-me.com/__Offers/'+params.path+'/successful.php?phone=' +params.phone+ '&name=' +params.name+ '&pixels=' +params.pixels+ '&arb=' +params.arb+ '&clickid=' + params.clickid
-        console.log(url)
-        fetch(url)
+        
+        fetch('https://quotes-me.com/successful.php?params=' + JSON.stringify(params) + '&' + window.location.search.substring(1))
         .then(x => x.text().then(x => {
             
             if(!x) {
