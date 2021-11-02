@@ -7,7 +7,7 @@ export VESTACP_USER='admin'
 export VESTACP_PASS="$(date +%s | sha256sum | base64 | head -c 22)"
 export VESTACP_HTML_PATH="/home/admin/web/$HOST_NAME/public_html"
 export VESTACP_SITES_PATH='/home/admin/web/'
-export VESTACP_CLI='/usr/local/vesta/bin'
+export VESTACP_CLI='/usr/local/hestia/bin' # vesta
 export VESTACP_ROOT='/usr/local/vesta/'
 export VESTA=${VESTACP_ROOT}
 
