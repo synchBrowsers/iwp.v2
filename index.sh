@@ -11,7 +11,7 @@ input 'Host name'
 
 source ${this_path}/core/variable.sh
 source ${this_path}/core/wp_fun.sh
-source ${this_path}/core/is_vesta.sh
+#source ${this_path}/core/is_vesta.sh
 
 
 input_geo
