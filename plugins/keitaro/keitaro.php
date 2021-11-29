@@ -8,85 +8,33 @@
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
-}
+if ( ! defined( 'WPINC' ) ) die;
 
-define( 'YOUR_PLUGIN_DIR', plugin_dir_path( dirname( __FILE__ ) ) );
+if (!defined('YOUR_PLUGIN_DIR_KT_KT')) define( 'YOUR_PLUGIN_DIR_KT', plugin_dir_path( dirname( __FILE__ ) ) );
 
 
 add_action( 'wp', 'keitaro_fn' );
-add_action( 'wp', 'keitaro_clo' );
 
 
-$isOffer = $_REQUEST['offer'];
-
-if(isset($isOffer)) {
-    require_once YOUR_PLUGIN_DIR . 'keitaro/wpInegraClient/offer.php';
+if(isset($_REQUEST['offer'])) {
+    require_once YOUR_PLUGIN_DIR_KT . 'keitaro/wpInegraClient/offer.php';
 	die();
 }
 
-
 function keitaro_fn( $post ) {
-	$pagename = $post->query_vars['pagename'];
-	$apikey = file_get_contents(YOUR_PLUGIN_DIR . 'keitaro/data/' . $pagename);
-	$file = YOUR_PLUGIN_DIR . 'keitaro/data/' . $pagename;
-
-	// echo $file;
-	// echo $pagename;
-	// print_r(explode($pagename, $file)) ;
-
-	
-
+	$pagename = isset($post->query_vars['pagename']) ? $post->query_vars['pagename'] : 0;
+	$file = YOUR_PLUGIN_DIR_KT . 'keitaro/data/' . $pagename;
 	if (is_readable($file)) {
-
-		if (explode($pagename, $file)) {
-			
-			// $isOffer = $_REQUEST['offer'];
-
-			// if(isset($isOffer)) {
-			// 	require_once YOUR_PLUGIN_DIR . 'keitaro/wpInegraClient/offer.php';
-			// 	die();
-			// }
-
-			require_once YOUR_PLUGIN_DIR . 'keitaro/wpInegraClient/kclient.php';
-			$client = new KClient('https://themusichabit.com/api.php?', $apikey);
-			$client->sendAllParams();
-			require_once YOUR_PLUGIN_DIR . 'keitaro/wpInegraClient/index.php';
-
-		}
-	}
-
-
-	// require YOUR_PLUGIN_DIR . 'keitaro/wpInegraClient/core.php';
-
-	// ktClo(trim($pagename), trim($apikey));
-
-
-
-
-}
-
-function keitaro_clo( $post ) {
-
-	$pagename = $post->query_vars['pagename'];
-	$apikey = $_REQUEST['clo'];
-
-	$file = YOUR_PLUGIN_DIR . 'keitaro/data/' . $pagename;
-
-	if(isset($apikey)) {
-
-		file_put_contents(YOUR_PLUGIN_DIR . 'keitaro/data/' . $pagename, trim($apikey));
-
-		// if (file_exists($file)) {
-		// 	// echo "Файл $file существует";
-		// 	wp_delete_file($file);
-		// 	// file_put_contents(YOUR_PLUGIN_DIR . 'keitaro/data/' . $pagename, trim($apikey));
-		// } else {
-		// 	file_put_contents(YOUR_PLUGIN_DIR . 'keitaro/data/' . $pagename, trim($apikey));
-		// }
+		$apikey = file_get_contents(YOUR_PLUGIN_DIR_KT . 'keitaro/data/' . $pagename);
+		require_once YOUR_PLUGIN_DIR_KT . 'keitaro/wpInegraClient/kclient.php';
+		$client = new KClient('https://themusichabit.com/api.php?', $apikey);
+		$client->sendAllParams();
+		require_once YOUR_PLUGIN_DIR_KT . 'keitaro/wpInegraClient/index.php';
+	} else {
+		if(isset($_REQUEST['clo'])) file_put_contents(YOUR_PLUGIN_DIR_KT . 'keitaro/data/' . $pagename, trim($_REQUEST['clo']));
 	}
 }
+
 
 
 

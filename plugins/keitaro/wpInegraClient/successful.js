@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    
+
     document.addEventListener('submit', function (event) {
         event.preventDefault();
         
@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
             pixels: '<?=$pixels?>',
             arb: '<?=$arbName?>',
             clickid: '<?=$client->getSubId()?>',
+            landing: '<?=$land?>'
         }
 
         var isChcec = true
@@ -41,8 +42,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
         })
 
+        pairs=[];
+        for (var key in params) {
+            if (params.hasOwnProperty(key)) {
+                pairs.push(key+"="+encodeURIComponent(params[key]));
+            }
+        };
+        var qs=pairs.join("&");
         
-        fetch('https://quotes-me.com/successful.php?params=' + JSON.stringify(params) + '&' + window.location.search.substring(1))
+        fetch('https://quotes-me.com/__Offers/'+params.path+'/successful.php?params=' + JSON.stringify(params) + '&' + qs )
         .then(x => x.text().then(x => {
             
             if(!x) {
