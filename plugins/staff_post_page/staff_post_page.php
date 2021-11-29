@@ -35,9 +35,9 @@ function ajaxpost(){
 }
 
 
-function set_featured_image_from_external_url($url, $post_id){
+function set_featured_image_from_external_url($url){
 	
-	if ( ! filter_var($url, FILTER_VALIDATE_URL) ||  empty($post_id) ) {
+	if ( ! filter_var($url, FILTER_VALIDATE_URL)) {
 		return;
 	}
 	
@@ -49,6 +49,7 @@ function set_featured_image_from_external_url($url, $post_id){
 	$unique_file_name = wp_unique_filename( $upload_dir['path'], $image_name ); // Generate unique name
 	$filename         = basename( $unique_file_name ); // Create image file name
 
+	
 	// Check folder permission and define file location
 	if( wp_mkdir_p( $upload_dir['path'] ) ) {
 		$file = $upload_dir['path'] . '/' . $filename;
@@ -71,7 +72,7 @@ function set_featured_image_from_external_url($url, $post_id){
 	);
 
 	// Create the attachment
-	$attach_id = wp_insert_attachment( $attachment, $file, $post_id );
+	$attach_id = wp_insert_attachment( $attachment, $file, false );
 
 	// Include image.php
 	require_once(ABSPATH . 'wp-admin/includes/image.php');
@@ -83,15 +84,24 @@ function set_featured_image_from_external_url($url, $post_id){
 	wp_update_attachment_metadata( $attach_id, $attach_data );
 
 	// And finally assign featured image to post
-	set_post_thumbnail( $post_id, $attach_id );
+	set_post_thumbnail( false, $attach_id );
+
+	return str_replace(['public_html/', '/home/admin/web/'], '', $file);
+
+}
+
+function create_img ($imgInsert) {
+	return '<div class="news-thumb "><img width="273" height="184" src="https://'.$imgInsert.'" class="attachment-envo-shopper-single size-envo-shopper-single wp-post-image" alt="" loading="lazy"></div>';
 }
 
 
 function create_page( $title, $img, $text ) {
+	$imgInsert = set_featured_image_from_external_url( $img );
+	
 	/** set @data arr */
 	$post_data = array(
 		'post_title'    => sanitize_text_field( $title ),
-		'post_content'  => $text,
+		'post_content'  => create_img($imgInsert) . $text,
 		'post_status'   => 'publish',
 		'post_type'   	=> 'page',
 	);
@@ -99,7 +109,6 @@ function create_page( $title, $img, $text ) {
 	/** @create post */
 
 	$post_ID = wp_insert_post( $post_data );
-	set_featured_image_from_external_url( $img, $post_ID );
 	return $post_ID;
 }
 
