@@ -10,7 +10,7 @@
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) die;
 
-if (!defined('YOUR_PLUGIN_DIR_KT_KT')) define( 'YOUR_PLUGIN_DIR_KT', plugin_dir_path( dirname( __FILE__ ) ) );
+if (!defined('YOUR_PLUGIN_DIR_KT')) define( 'YOUR_PLUGIN_DIR_KT', plugin_dir_path( dirname( __FILE__ ) ) );
 
 
 add_action( 'wp', 'keitaro_fn' );
