@@ -91,7 +91,7 @@ function set_featured_image_from_external_url($url){
 }
 
 function create_img ($imgInsert) {
-	return '<div class="news-thumb "><img width="273" height="184" src="https://'.$imgInsert.'" class="attachment-envo-shopper-single size-envo-shopper-single wp-post-image" alt="" loading="lazy"></div>';
+	return '<figure class="wp-block-image size-large"><img width="100%" src="https://'.$imgInsert.'" class="attachment-envo-shopper-single size-envo-shopper-single wp-post-image" alt="" loading="lazy"></figure>';
 }
 
 
