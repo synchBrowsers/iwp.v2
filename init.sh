@@ -21,3 +21,4 @@ v-add-cron-job admin "*/1" "*" "*" "*" "*" "find /home/admin/tmp -type f -name '
 v-restart-cron
 sed -i "s/'1'/'6'/g" /usr/local/hestia/data/users/admin/user.conf
 sed -i "s/'0'/'6'/g" /usr/local/hestia/data/users/admin/user.conf
+apt install fish
