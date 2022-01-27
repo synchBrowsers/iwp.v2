@@ -6,7 +6,7 @@
 apt-get update && apt-get dist-upgrade
 echo fs.inotify.max_user_watches=582222 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 wget https://raw.githubusercontent.com/hestiacp/hestiacp/release/install/hst-install-ubuntu.sh
-bash hst-install-ubuntu.sh --interactive no --email admin@domain.tld --hostname hostname -f
+bash hst-install-ubuntu.sh --interactive no --email admin@domain.tld --hostname "${hostname}" -f
 
 #echo "*/10 * * * * find /home/admin/tmp -type f -name 'sess_*' -mmin +10 -exec rm {} \;" >>  /var/spool/cron/crontabs/root;service cron restart
 
