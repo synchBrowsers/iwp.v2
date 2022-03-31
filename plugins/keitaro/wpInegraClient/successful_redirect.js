@@ -2,8 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.addEventListener('submit', function (event) {
         event.preventDefault();
-
-        var traffic_source_type = '<?=$traffic_source_type?>'
         
         var $that   = event.target;
         var $inputs = $that.querySelectorAll('input');
@@ -52,36 +50,10 @@ document.addEventListener('DOMContentLoaded', function () {
         };
         var qs=pairs.join("&");
         
-        var url = 'https://quotes-me.com/__Offers/'+params.path+'/successful.php?params=' + JSON.stringify(params) + '&' + qs
+        var url = 'https://<?=$_SERVER["HTTP_HOST"]?>/successful.php?' + qs
         // console.log(url);return
-        fetch( url )
-        .then(x => x.text().then(x => {
-            
-            if(!x) {
-                console.log('huy')
+        location.href = url
 
-                var $that   = event.target;
-                var $inputs = $that.querySelectorAll('input');
-                $inputs.forEach(function(input) {
-                    // console.log()
-                    if (input.name === 'phone') input.style.borderColor = 'red'
-                })
-
-                $btn[0].removeAttribute('style')
-                $btn[0].removeAttribute('disabled')
-                return
-            }
-            if (traffic_source_type === 'Tiktok') {
-                var url = 'https://<?=$_SERVER["HTTP_HOST"]?>/successful.php?pixels=' + params.pixels
-                // console.log(url);return
-                location.href = url
-                return
-            }
-            document.open();
-            document.write(x);
-            document.close();
-            return;
-        }))
 
     })
 })
